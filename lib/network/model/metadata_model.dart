@@ -8,13 +8,11 @@ part 'metadata_model.mapper.dart';
 /// this model is for metadata 
 class MetadataModel with MetadataModelMappable {
   final String url;
-
-  final int? height;
-  final int? width;
+  final num? height;
+  final num? width;
 
   MetadataModel({
     required this.url,
-
     this.height,
     this.width,
   });

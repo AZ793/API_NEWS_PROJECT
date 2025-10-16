@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:new_project/network/methods/network_api.dart';
-import 'package:new_project/network/model/all_data_model.dart';
+import 'package:get_it/get_it.dart';
+import 'package:new_project/layer/emailed_layer.dart';
 
 
 class EmailedScreen extends StatefulWidget {
@@ -11,43 +11,80 @@ class EmailedScreen extends StatefulWidget {
 }
 
 class EmailedScreenState extends State<EmailedScreen> {
-  Future<AllDataModel>? _articles;
-  final NetworkApi networkApi = NetworkApi();
+  bool isLoading = false;
+  final emailedLayer = GetIt.I.get<EmailedLayer>();
 
   @override
   void initState() {
     super.initState();
-    _articles = networkApi.emailedApi.getEmailedArticles();
+    _loadArticles();
+  }
+
+  Future<void> _loadArticles() async {
+    setState(() => isLoading = true);
+
+    (await emailedLayer.getEmailedArticles(period: 1))
+        .onSuccess((data) {
+          setState(() {});
+        })
+        .onFailure((error) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error: ${error.toString()}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        });
+
+    setState(() => isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('NY Times EmailedArticles')),
-      body: FutureBuilder<AllDataModel>(
-        future: _articles,
-        builder: (context, dataload) {
-          if (dataload.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (dataload.hasError) {
-            return Center(child: Text('Error: ${dataload.error}'));
-          } else if (dataload.hasData) {
-            final allData = dataload.data!;
-            return Column(
+      appBar: AppBar(
+        title: Text('NY Times EmailedArticles'),
+        actions: [
+          IconButton(icon: Icon(Icons.refresh), onPressed: _loadArticles),
+        ],
+      ),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : !emailedLayer
+                .hasData() // will () because is a method
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.article_outlined, size: 64, color: Colors.grey),
+                  SizedBox(height: 16),
+                  Text('No articles loaded'),
+                  SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: _loadArticles,
+                    child: Text('Load Articles'),
+                  ),
+                ],
+              ),
+            )
+          : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Total Results: ${allData.numResults}',
+                    'Total Results: ${emailedLayer.totalResults()}', // will () because is a method
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: allData.results.length,
+                    itemCount: emailedLayer
+                        .articles()
+                        .length, // will () because is a method
                     itemBuilder: (context, index) {
-                      final article = allData.results[index];
+                      final article = emailedLayer
+                          .articles()[index]; // will () because is a method
                       return Card(
                         margin: EdgeInsets.symmetric(
                           vertical: 4,
@@ -77,12 +114,7 @@ class EmailedScreenState extends State<EmailedScreen> {
                   ),
                 ),
               ],
-            );
-          } else {
-            return Center(child: Text('No articles found.'));
-          }
-        },
-      ),
+            ),
     );
   }
 }

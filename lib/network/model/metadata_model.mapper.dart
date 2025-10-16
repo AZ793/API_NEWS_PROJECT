@@ -23,14 +23,14 @@ class MetadataModelMapper extends ClassMapperBase<MetadataModel> {
 
   static String _$url(MetadataModel v) => v.url;
   static const Field<MetadataModel, String> _f$url = Field('url', _$url);
-  static int? _$height(MetadataModel v) => v.height;
-  static const Field<MetadataModel, int> _f$height = Field(
+  static num? _$height(MetadataModel v) => v.height;
+  static const Field<MetadataModel, num> _f$height = Field(
     'height',
     _$height,
     opt: true,
   );
-  static int? _$width(MetadataModel v) => v.width;
-  static const Field<MetadataModel, int> _f$width = Field(
+  static num? _$width(MetadataModel v) => v.width;
+  static const Field<MetadataModel, num> _f$width = Field(
     'width',
     _$width,
     opt: true,
@@ -113,7 +113,7 @@ extension MetadataModelValueCopy<$R, $Out>
 
 abstract class MetadataModelCopyWith<$R, $In extends MetadataModel, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? url, int? height, int? width});
+  $R call({String? url, num? height, num? width});
   MetadataModelCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 

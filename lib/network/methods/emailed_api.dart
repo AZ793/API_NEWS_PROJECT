@@ -12,8 +12,6 @@ class EmailedApi {
     );
 
     final allData = AllDataModelMapper.fromMap(response.data);
-    print('numResults: ${allData.numResults}');
-    print('num of titles: ${allData.results.isNotEmpty ? allData.results.length : 'none'}');
 
     return allData;
   }
