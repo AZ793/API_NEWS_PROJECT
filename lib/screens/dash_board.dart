@@ -6,7 +6,7 @@ import 'package:new_project/core/theme/codes_extensions.dart';
 import 'package:new_project/screens/favorite_screen.dart';
 import 'package:new_project/screens/home/home_screen.dart';
 import 'package:new_project/screens/profile_screen.dart';
-import 'package:new_project/screens/search_screen.dart';
+import 'package:new_project/screens/test_screen/emailed_screen.dart';
 //============ ▲ PAGES UESES NAVBAR ▲ ============
 
 class DashBoard extends StatefulWidget {
@@ -22,7 +22,7 @@ class _DashBoard extends State<DashBoard> {
   final List<Widget> _pages = [
     //====== ▼ NAVBAR PAGES (Class) ▼ ======
     HomeScreen(),
-    SearchScreen(),
+    EmailedScreen(),
     FavoriteScreen(),
     ProfileScreen(),
     //====== ▲ NAVBAR PAGES (Class) ▲ ======
@@ -56,11 +56,14 @@ class _DashBoard extends State<DashBoard> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('auto name =>  ', style: context.textStyles.b1),
-
             Text(
-              ["Home", "Search", "Favorites", "Profile"][_selectedIndex],
-              style: context.textStyles.b1,
+              [
+                "Home",
+                "NY Times EmailedArticles",
+                "Favorites",
+                "Profile",
+              ][_selectedIndex],
+              style: context.textStyles.h2,
             ),
           ],
         ),

@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:new_project/screens/dash_board.dart';
 import 'package:new_project/screens/home/home_screen.dart';
 import 'package:new_project/core/theme/app_themes.dart';
+import 'package:new_project/screens/test_screen/emailed_screen.dart';
+import 'package:new_project/screens/test_screen/shared_screen.dart';
+import 'package:new_project/screens/test_screen/viewed_screen.dart';
+import 'package:new_project/setup/setup.dart';
 
 void main() {
+  setup();
   runApp(const MyApp());
 }
 
@@ -38,9 +43,9 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/dashBoard',
       //============== ▼ here all the pages path ▼ ==============
       routes: {
-        //'/': (context) => SplashScreen(),
-        //'/login': (context) => LoginScreen(),
-        //'/signup': (context) => SignUpScreen(),
+        '/viewd': (context) => ViewedScreen(),
+        '/emailed': (context) => EmailedScreen(),
+        '/shared': (context) => SharedScreen(),
         '/dashBoard': (context) => DashBoard(onToggleTheme: toggleTheme),
         '/home': (context) => HomeScreen(),
       },

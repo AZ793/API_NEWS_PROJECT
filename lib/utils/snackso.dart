@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_project/core/theme/codes_extensions.dart';
 
 //▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼▲▼
 
@@ -24,11 +25,8 @@ class Snackso {
       SnackBar(
         content: Text(
           message,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          textAlign: TextAlign.center,
+          style: context.textStyles.b1,
         ),
 
         backgroundColor: backgroundColor,
@@ -37,7 +35,7 @@ class Snackso {
 
         margin: const EdgeInsets.all(12),
 
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
 
         // How long the SnackBar remains visible before disappearing
         duration: const Duration(seconds: 3),

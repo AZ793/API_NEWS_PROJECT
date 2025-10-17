@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 30),
-                //==================    ===================
+                //==============================================
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

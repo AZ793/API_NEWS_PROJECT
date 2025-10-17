@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:new_project/layer/emailed_layer.dart';
+import 'package:new_project/utils/snackso.dart';
 
+//=====================================================================
+//=================== HELLO RAND PLEASE DELETE THEIS TEST =============
+//===================   SCREEN AFTER YOU COMPLATE THE UI  =============
+//======================================================== Abdulaziz ==
 
 class EmailedScreen extends StatefulWidget {
   const EmailedScreen({super.key});
@@ -25,14 +30,19 @@ class EmailedScreenState extends State<EmailedScreen> {
 
     (await emailedLayer.getEmailedArticles(period: 1))
         .onSuccess((data) {
+          Snackso.show(
+            context,
+            message: "UPDATAED ❤️",
+            backgroundColor: Colors.lightGreen,
+          );
           setState(() {});
         })
         .onFailure((error) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Error: ${error.toString()}'),
-              backgroundColor: Colors.red,
-            ),
+          // show clean error message from safeCall or DioErrorHandler
+          Snackso.show(
+            context,
+            message: "Check Your Network ",
+            backgroundColor: Colors.red.shade400,
           );
         });
 
@@ -43,7 +53,6 @@ class EmailedScreenState extends State<EmailedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('NY Times EmailedArticles'),
         actions: [
           IconButton(icon: Icon(Icons.refresh), onPressed: _loadArticles),
         ],
